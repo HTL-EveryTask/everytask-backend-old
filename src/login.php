@@ -13,7 +13,7 @@ function isEmailValid($email) {
         return false;
     else {
         //remove whitespaces and
-        //convert email to loweercase for processing
+        //convert email to lowercase for processing
         $email=trim(strtolower($email));
 
         //regex

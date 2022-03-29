@@ -1,0 +1,11 @@
+{
+    "name": "everytask/backend",
+    "description": "Backend of EverTask\u001b[D\u001b[D\u001b[D\u001b[Dy Task",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Everytask\\Backend\\": "src/"
+        }
+    },
+    "require": {}
+}

@@ -12,4 +12,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 
 
 INSERT INTO `account` (`account_id`, `username`, `password`, `email`)
-VALUES (1, 'admin', 'admin', 'admin@admin.com');
+VALUES (1, 'admin', '$2y$10$KHETqgC05AWHLk5JUL6bf.mUeSA3klmwZ7JITfaws0bb4iJyQF1aC', 'admin@admin.com');
+
+
+SELECT * FROM account WHERE email = 'admin@admin.com' AND password = 'admin';

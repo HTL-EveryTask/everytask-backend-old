@@ -13,7 +13,6 @@ class Login
     private $email;
     private $password;
 
-
     public function __construct($email, $password)
     {
         $this->email = $email;
@@ -28,9 +27,7 @@ class Login
         $password = $this->getPassword();
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return false;
-        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
 
         //SELECT password and email from account and fetch it
         $sql = "SELECT * FROM account WHERE email = :email";

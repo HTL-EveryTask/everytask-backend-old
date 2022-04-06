@@ -1,5 +1,7 @@
 <?php
 
+namespace Everytask\Backend;
+
 /**
  * Author: Kaminski
  * Date: 29.03.2022
@@ -32,9 +34,8 @@ class Login
         //SELECT password and email from account and fetch it
         $sql = "SELECT * FROM account WHERE email = :email";
         $stmt = $connect->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute(array(':email' => $email));
+        $result = $stmt->fetchAll();
 
         if (!$result) return false;
         if (!password_verify($password, $result['password'])) return false;

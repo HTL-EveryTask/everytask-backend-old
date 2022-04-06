@@ -7,7 +7,6 @@ namespace Everytask\Backend;
  * Date: 29.03.2022
  */
 
-require_once 'db_connect/connect.php';
 
 class Login
 {
@@ -22,12 +21,12 @@ class Login
     }
 
 
-    public function checkCredentials(): bool
+    public function checkCredentials()
     {
-        global $connect;
+        require_once 'db_connect/connect.php';
+
         $email = $this->getEmail();
         $password = $this->getPassword();
-        $password = password_hash($password, PASSWORD_DEFAULT);
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
 
@@ -36,8 +35,8 @@ class Login
         $stmt = $connect->prepare($sql);
         $stmt->execute(array(':email' => $email));
         $result = $stmt->fetchAll();
-
         if (!$result) return false;
+        $result = $result[0];
         if (!password_verify($password, $result['password'])) return false;
         return true;
     }

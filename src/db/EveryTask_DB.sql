@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `account`
 
 
 INSERT INTO `account` (`account_id`, `username`, `password`, `email`)
-VALUES (1, 'admin', '$2y$10$KHETqgC05AWHLk5JUL6bf.mUeSA3klmwZ7JITfaws0bb4iJyQF1aC', 'admin@admin.com');
+VALUES (1, 'admin', '$2y$10$s18Qy/iZQpWhgldcm6JLbetKU9L6UCw5pM1uhYJBPbpqd/IeyrKXG', 'admin@admin.com');
 
 
 SELECT *

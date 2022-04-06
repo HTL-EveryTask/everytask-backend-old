@@ -6,7 +6,7 @@ require_once 'vendor/autoload.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
-header("content-type: application/json");
+header("Content-Type: application/json");
 
 $phpInput = file_get_contents('php://input');
 $POST = json_decode($phpInput, true);

@@ -53,6 +53,9 @@ class Register
         return true;
     }
 
+    /**
+     * Create Account
+     */
     public function createAccount()
     {
         require 'db_connect/connect.php';

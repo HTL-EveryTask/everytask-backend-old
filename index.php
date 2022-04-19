@@ -1,6 +1,7 @@
 <?php
 
 use Everytask\Backend\Login;
+use Everytask\Backend\Register;
 
 require_once 'vendor/autoload.php';
 
@@ -21,5 +22,16 @@ if (isset($POST['action']) && $POST['action'] == 'login') {
         echo json_encode(array('status' => 'success'));
     } else {
         echo json_encode(array('status' => 'error'));
+    }
+}
+
+// Checks if register credentials matching requirements and create account
+if (isset($POST['action']) && $POST['action'] == 'register') {
+    $user = new Register($POST['email'], $POST['password'], $POST['username']);
+    if ($user->validateRegister()) {
+        echo json_encode(array('Registration Data' => 'allowed'));
+        $user->createAccount();
+    } else {
+        echo json_encode(array('Registration Data' => 'not allowed'));
     }
 }

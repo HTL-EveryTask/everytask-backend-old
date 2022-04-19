@@ -26,16 +26,9 @@ CREATE TABLE IF NOT EXISTS `task` (
 );
 
 
-INSERT INTO `account` (`account_id`, `username`, `password`, `email`)
+INSERT INTO `account` (`username`, `password`, `email`)
 VALUES (
-    1,
     'admin',
     '$2y$10$s18Qy/iZQpWhgldcm6JLbetKU9L6UCw5pM1uhYJBPbpqd/IeyrKXG',
     'admin@admin.com'
   );
-
-
-SELECT *
-FROM account
-WHERE email = 'admin@admin.com'
-  AND password = 'admin';

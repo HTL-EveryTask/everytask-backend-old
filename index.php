@@ -1,26 +1,25 @@
 <?php
 
-namespace Everytask\Backend;
-
-use Login;
+use Everytask\Backend\Login;
 
 require_once 'vendor/autoload.php';
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
-header("content-type: application/json");
+header("Content-Type: application/json");
 
+// gets Input from the request
+$phpInput = file_get_contents('php://input');
 
-//data returned is only for testing purposes (real data is not returned)
-if (isset($_POST['action']) && $_POST['action'] == 'login') {
-    $data = [
-        'email' => $_POST['username'],
-        'password' => $_POST['password']
-    ];
-    echo json_encode(['success' => true, 'data' => $data]);
-    $data1 = new Login($data['email'], $data['password']);
-    if ($data1->checkCredentials()) {
-        echo json_encode(['success' => true, 'data' => $data]);
+// Decodes the input
+$POST = json_decode($phpInput, true);
+
+// Checks if the user exists and if the password is correct
+if (isset($POST['action']) && $POST['action'] == 'login') {
+    $user = new Login($POST['email'], $POST['password']);
+    if ($user->checkCredentials()) {
+        echo json_encode(array('status' => 'success'));
     } else {
-        echo json_encode(['success' => false, 'data' => 'cat']);
+        echo json_encode(array('status' => 'error'));
     }
 }

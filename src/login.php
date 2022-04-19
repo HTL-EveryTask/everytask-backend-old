@@ -1,11 +1,12 @@
 <?php
 
+namespace Everytask\Backend;
+
 /**
  * Author: Kaminski
  * Date: 29.03.2022
  */
 
-require_once 'db_connect/connect.php';
 
 class Login
 {
@@ -20,23 +21,22 @@ class Login
     }
 
 
-    public function checkCredentials(): bool
+    public function checkCredentials()
     {
-        global $connect;
+        require_once 'db_connect/connect.php';
+
         $email = $this->getEmail();
         $password = $this->getPassword();
-        $password = password_hash($password, PASSWORD_DEFAULT);
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
 
         //SELECT password and email from account and fetch it
         $sql = "SELECT * FROM account WHERE email = :email";
         $stmt = $connect->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        $stmt->execute(array(':email' => $email));
+        $result = $stmt->fetchAll();
         if (!$result) return false;
+        $result = $result[0];
         if (!password_verify($password, $result['password'])) return false;
         return true;
     }

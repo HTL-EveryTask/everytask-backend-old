@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `token` varchar(255) NOT NULL,
   PRIMARY KEY (`pk_account_id`)
 );
 
@@ -32,3 +33,5 @@ VALUES (
     '$2y$10$s18Qy/iZQpWhgldcm6JLbetKU9L6UCw5pM1uhYJBPbpqd/IeyrKXG',
     'admin@admin.com'
   );
+
+

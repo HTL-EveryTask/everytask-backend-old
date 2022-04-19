@@ -29,7 +29,7 @@ class Register
      */
     public function validateRegister()
     {
-        require_once 'db_connect/connect.php';
+        require 'db_connect/connect.php';
 
         $email = $this->getEmail();
         $password = $this->getPassword();
@@ -55,7 +55,7 @@ class Register
 
     public function createAccount()
     {
-        require_once 'db_connect/connect.php';
+        require 'db_connect/connect.php';
 
         $email = $this->getEmail();
         $password = password_hash($this->getPassword(), PASSWORD_DEFAULT);

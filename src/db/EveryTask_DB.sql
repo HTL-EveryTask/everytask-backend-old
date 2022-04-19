@@ -15,14 +15,14 @@ CREATE TABLE IF NOT EXISTS `account` (
 -- create a table which stores tasks
 CREATE TABLE IF NOT EXISTS `task` (
   `pk_task_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `fk_pk_account_id` int NOT NULL FOREIGN KEY REFERENCES `account`(`account_id`),
+  `fk_pk_account_id` int NOT NULL,
   `title` varchar(50) NOT NULL,
   `description` varchar(255) NOT NULL,
   `done` boolean NOT NULL,
   `due_time` datetime NOT NULL,
   `create_time` datetime NOT NULL,
   `note` text NOT NULL,
-   CONSTRAINT FOREIGN KEY task_account (creator_id) REFERENCES Flugzeughersteller (pk_HerstellerID) ON DELETE NO ACTION
+   CONSTRAINT FOREIGN KEY task_account (fk_pk_account_id) REFERENCES account (pk_account_id) ON DELETE NO ACTION
 );
 
 

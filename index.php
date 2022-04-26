@@ -26,7 +26,7 @@ $POST = json_decode($phpInput, true);
 if (isset($POST['action']) && $POST['action'] == 'login') {
     $user = new Login($POST['email'], $POST['password']);
     if ($user->checkCredentials()) {
-        echo json_encode(array('status' => 'success'));
+        echo json_encode(array('status' => 'success', 'token' => User::getToken_byEmail($POST['email'])));
     } else {
         echo json_encode(array('status' => 'error'));
     }
@@ -41,4 +41,10 @@ if (isset($POST['action']) && $POST['action'] == 'register') {
     } else {
         echo json_encode(array('Registration Data' => 'not allowed'));
     }
+}
+
+
+// Send User ID by Token
+if (isset($POST['action']) && $POST['action'] == 'get_UserID') {
+    echo json_encode(array('User ID' => User::getUserID_byToken($POST['token'])))
 }

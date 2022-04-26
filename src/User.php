@@ -4,7 +4,7 @@ namespace Everytask\Backend;
 
 /**
  * Version: 1.0
- * Author: Kaminski
+ * Author: Kaminski & Zangl
  * Date: 26.04.2022
  */
 

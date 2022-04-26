@@ -3,7 +3,7 @@
 namespace Everytask\Backend;
 
 /**
- * Author: Kaminski
+ * Author: Kaminski & Zangl
  * Date: 29.03.2022
  */
 

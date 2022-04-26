@@ -32,6 +32,45 @@ class Task
     }
 
 
+
+    /**
+     * Get All Tasks
+     */
+    public function getTask()
+    {
+        require 'db_connect/connect.php';
+
+        $sql = "SELECT * FROM task";
+        $stmt = $connect->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
+
+
+
+    /**
+     * TODO
+     */
+    public function getTask_byUser()
+    {
+        require 'db_connect/connect.php';
+    }
+
+
+    /**
+     * TODO
+     */
+    public function getTask_byGroup()
+    {
+        require 'db_connect/connect.php';
+    }
+
+
+
+
     public function addTask()
     {
         require 'db_connect/connect.php';
@@ -46,10 +85,10 @@ class Task
 
         
         $sql = "INSERT INTO task (fk_pk_account_id, title, description, done, due_time, create_time, note) 
-                VALUES ();";
+                VALUES (:creator, :title, :description, :done, :due_time, :created_time, :note);";
 
         $stmt = $connect->prepare($sql);
-        $stmt->execute(array(':email' => $email, ':username' => $username, ':password' => $password));
+        $stmt->execute(array(':creator' => $creator, ':title' => $title, ':description' => $description, ':done' => $done, ':due_time' => $due_time, ':created_time' => $created_time, ':note' => $note));
     }
 
 

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Start PHP Server on Localhost 8080
+ * php -S localhost:8080
+ *
+ * Frontend:
+ * npm run dev
+ */
 
 use Everytask\Backend\Login;
 use Everytask\Backend\Register;

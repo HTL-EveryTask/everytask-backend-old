@@ -20,7 +20,6 @@ class Task
     private $note;
 
 
-
     public function __construct($creator, $title, $description, $done, $due_time, $created_time, $note)
     {
         $this->creator = $creator;

@@ -1,13 +1,5 @@
 <?php
 
-/**
- * Start PHP Server on Localhost 8080
- * php -S localhost:8080
- *
- * Frontend:
- * npm run dev
- */
-
 namespace Everytask\Backend;
 
 /**

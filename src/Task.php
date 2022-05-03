@@ -105,7 +105,7 @@ class Task
         $sql = "SELECT pk_task_id FROM task WHERE fk_pk_account_id = $creator_id AND description = $description AND due_time = $due_time AND created_time = $created_time";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll()[0]['fk_pk_account_id'];
+        return $stmt->fetchAll()[0]['pk_task_id'];
 
     }
 

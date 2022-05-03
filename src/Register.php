@@ -125,7 +125,7 @@ class Register
     /**
      * Get the value of token
      */
-    public static function getToken()
+    public function getToken()
     {
         return $this->token;
     }

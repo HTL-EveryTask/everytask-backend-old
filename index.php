@@ -9,6 +9,7 @@
 
 use Everytask\Backend\Login;
 use Everytask\Backend\Register;
+use Everytask\Backend\User;
 
 require_once 'vendor/autoload.php';
 
@@ -46,5 +47,5 @@ if (isset($POST['action']) && $POST['action'] == 'register') {
 
 // Send User ID by Token
 if (isset($POST['action']) && $POST['action'] == 'get_UserID') {
-    echo json_encode(array('User ID' => User::getUserID_byToken($POST['token'])))
+    echo json_encode(array('User ID' => User::getUserID_byToken($POST['token'])));
 }

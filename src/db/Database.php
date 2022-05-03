@@ -8,12 +8,10 @@
 
 class Database {
     protected $input;
-    protected $action;
 
-    public function __construct($input, $action)
+    public function __construct($input)
     {
         $this->input = $input;
-        $this->action = $action;
     }
 
     public function getInput()

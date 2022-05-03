@@ -10,6 +10,7 @@
 use Everytask\Backend\Login;
 use Everytask\Backend\Register;
 use Everytask\Backend\User;
+use Everytask\Backend\Task;
 
 require_once 'vendor/autoload.php';
 

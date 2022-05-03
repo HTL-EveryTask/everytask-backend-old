@@ -10,6 +10,7 @@
     "require": {
       "ext-pdo": "*",
       "ext-json": "*",
-      "ext-openssl": "*"
+      "ext-openssl": "*",
+        "phpunit/phpunit": "^9.5"
     }
 }

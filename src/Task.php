@@ -70,6 +70,9 @@ class Task
 
 
 
+    /**
+     * Adds the task to database
+     */
     public function addTask()
     {
         require 'db_connect/connect.php';
@@ -92,8 +95,26 @@ class Task
     }
 
 
+    /**
+     * Returns the Task ID
+     */
+    public static function getID($creator_id, $description, $due_time, $created_time)
+    {   
+        require 'db_connect/connect.php';
+
+        $sql = "SELECT pk_task_id FROM task WHERE fk_pk_account_id = $creator_id AND description = $description AND due_time = $due_time AND created_time = $created_time";
+        $stmt = $connect->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll()[0]['pk_task_id'];
+
+    }
+
+
     
-    public function editTask()
+    /**
+     * Updates old Task to new Task with given parameters
+     */
+    public function editTask($creator_new, $title_new, $description_new, $done_new, $due_time_new, $created_time_new, $note_new)
     {
         require 'db_connect/connect.php';
 
@@ -107,10 +128,15 @@ class Task
 
 
         $sql = "UPDATE task
-                SET column1 = value1, column2 = value2, ...
-                WHERE condition;";
-
+                SET fk_pk_account_id = $creator_new, title = $title_new, description = $description_new, done = $done_new, due_time = $due_time_new, created_time = $created_time_new, note = $note_new
+                WHERE fk_pk_account_id = :creator AND description = :description AND due_time = :due_time AND created_time = :created_time;";
+        $stmt = $connect->prepare($sql);
+        $stmt->execute();
     }
+
+
+
+    
 
     /**
      * Get the value of creator

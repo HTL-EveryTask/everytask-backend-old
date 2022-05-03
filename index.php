@@ -61,9 +61,10 @@ if (isset($POST['action']) && $POST['action'] == 'get_UserID') {
 if (isset($POST['action']) && $POST['action'] == 'addTask') {
 
     $task = new Task(User::getUserID_byToken($POST['token']), $POST['title'], $POST['description'], $POST['is_done'], $POST['due_time'], $POST['created_time'], $POST['note']);
-    
-    if (isset($task)) {
-        echo json_encode(array('Task added' => 'true'));
+    $task_id = Task::getID(User::getUserID_byToken($POST['token']), $POST['description'], $POST['due_time'], $POST['created_time']);
+
+    if (isset($task_id)) {
+        echo json_encode(array('Task added' => 'true', 'task_id' => $task_id));
         return;
     }
     

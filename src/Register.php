@@ -62,6 +62,7 @@ class Register
         $stmt = $connect->prepare($sql);
         $stmt->execute(array(':email' => $email, ':username' => $username));
         $result = $stmt->fetchAll();
+        if ($result) return false;
 
         // Check if Token in use -> Generate new if exists
         $token_sql = "SELECT token FROM account WHERE token = :token";

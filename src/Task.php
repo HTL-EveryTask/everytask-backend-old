@@ -134,9 +134,13 @@ class Task
         $stmt->execute();
     }
 
+    public function deleteTask($id) {
+        require 'db_connect/connect.php';
 
-
-    
+        $sql = "DELETE FROM task WHERE pk_task_id = :id";
+        $stmt = $connect->prepare($sql);
+        $stmt->execute(array(':id' => $id));
+    }
 
     /**
      * Get the value of creator

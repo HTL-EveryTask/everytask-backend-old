@@ -48,6 +48,7 @@ if (isset($POST['action']) && $POST['action'] == 'register') {
 // Send User ID by Token
 if (isset($POST['action']) && $POST['action'] == 'get_UserID') {
     echo json_encode(array('User ID' => User::getUserID_byToken($POST['token'])));
+
 }
 
 
@@ -67,4 +68,5 @@ if (isset($POST['action']) && $POST['action'] == 'addTask') {
     }
     
     echo json_encode(array('Task added' => 'error occured, check sent data'));
+
 }

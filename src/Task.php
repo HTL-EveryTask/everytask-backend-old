@@ -3,8 +3,9 @@
 namespace Everytask\Backend;
 
 /**
+ * Version 1.1
  * Author: Kaminski & Zangl
- * Date: 19.04.2022
+ * Date: 26.04.2022
  */
 
 
@@ -49,8 +50,6 @@ class Task
     }
 
 
-
-
     /**
      * TODO
      */
@@ -89,6 +88,7 @@ class Task
 
         $stmt = $connect->prepare($sql);
         $stmt->execute(array(':creator' => $creator, ':title' => $title, ':description' => $description, ':done' => $done, ':due_time' => $due_time, ':created_time' => $created_time, ':note' => $note));
+
     }
 
 
@@ -111,10 +111,6 @@ class Task
                 WHERE condition;";
 
     }
-
-
-
-
 
     /**
      * Get the value of creator

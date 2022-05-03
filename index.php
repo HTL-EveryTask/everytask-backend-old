@@ -70,3 +70,8 @@ if (isset($POST['action']) && $POST['action'] == 'addTask') {
     echo json_encode(array('Task added' => 'error occured, check sent data'));
 
 }
+
+//Delete Task
+if (isset($POST['action']) && $POST['action'] == 'deleteTask') {
+    echo json_encode(array('Task deleted' => 'true'));
+}

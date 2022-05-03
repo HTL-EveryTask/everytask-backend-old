@@ -88,6 +88,28 @@ class Task
 
         $stmt = $connect->prepare($sql);
         $stmt->execute(array(':creator' => $creator, ':title' => $title, ':description' => $description, ':done' => $done, ':due_time' => $due_time, ':created_time' => $created_time, ':note' => $note));
+
+    }
+
+
+    
+    public function editTask()
+    {
+        require 'db_connect/connect.php';
+
+        $creator = $this->getCreator();
+        $title = $this->getTitle();
+        $description = $this->getDescription();
+        $done = $this->getDone();
+        $due_time = $this->getDue_time();
+        $created_time = $this->getCreated_time();
+        $note = $this->getNote();
+
+
+        $sql = "UPDATE task
+                SET column1 = value1, column2 = value2, ...
+                WHERE condition;";
+
     }
 
     /**

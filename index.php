@@ -9,6 +9,7 @@
 
 use Everytask\Backend\Login;
 use Everytask\Backend\Register;
+use Everytask\Backend\User;
 
 require_once 'vendor/autoload.php';
 
@@ -47,4 +48,24 @@ if (isset($POST['action']) && $POST['action'] == 'register') {
 // Send User ID by Token
 if (isset($POST['action']) && $POST['action'] == 'get_UserID') {
     echo json_encode(array('User ID' => User::getUserID_byToken($POST['token'])));
+
+}
+
+
+
+
+
+
+// Add new Task
+if (isset($POST['action']) && $POST['action'] == 'addTask') {
+
+    $task = new Task(User::getUserID_byToken($POST['token']), $POST['title'], $POST['description'], $POST['is_done'], $POST['due_time'], $POST['created_time'], $POST['note']);
+    
+    if (isset($task)) {
+        echo json_encode(array('Task added' => 'true'));
+        return;
+    }
+    
+    echo json_encode(array('Task added' => 'error occured, check sent data'));
+
 }

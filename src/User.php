@@ -4,7 +4,7 @@ namespace Everytask\Backend;
 
 /**
  * Version: 1.0
- * Author: Kaminski
+ * Author: Kaminski & Zangl
  * Date: 26.04.2022
  */
 
@@ -29,15 +29,18 @@ class User
 
 
     public static function getToken_byEmail($email) {
-        $sql = "SELECT token FROM account WHERE email = $email";
+        require 'db_connect/connect.php';
+
+        $sql = "SELECT token FROM account WHERE email = :email";
         $stmt = $connect->prepare($sql);
         $stmt->execute(array(':email' => $email));
-        return $stmt->fetchAll();
+        return $stmt->fetchAll()[0]['token'];
     }
 
 
-
     public static function getUserID_byToken($token) {
+        require_once 'db_connect/connect.php';
+
         $sql = "SELECT pk_account_id FROM account WHERE token = $token";
         $stmt = $connect->prepare($sql);
         $stmt->execute(array(':token' => $token));

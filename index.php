@@ -74,5 +74,10 @@ if (isset($POST['action']) && $POST['action'] == 'addTask') {
 
 //Delete Task
 if (isset($POST['action']) && $POST['action'] == 'deleteTask') {
+    if($POST['task_id'] == '' || $POST['task_id'] == null || $POST['task_id'] == 'undefined') {
+        echo json_encode(array('Task deleted' => 'false'));
+        return;
+    }
+    Task::deleteTask($POST['task_id']);
     echo json_encode(array('Task deleted' => 'true'));
 }

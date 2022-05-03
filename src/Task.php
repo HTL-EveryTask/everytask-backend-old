@@ -134,7 +134,7 @@ class Task
         $stmt->execute();
     }
 
-    public function deleteTask($id) {
+    public static function deleteTask($id) {
         require 'db_connect/connect.php';
 
         $sql = "DELETE FROM task WHERE pk_task_id = :id";

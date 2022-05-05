@@ -17,18 +17,18 @@ class Task
     private $description;
     private $done;
     private $due_time;
-    private $created_time;
+    private $create_time;
     private $note;
 
 
-    public function __construct($creator, $title, $description, $done, $due_time, $created_time, $note)
+    public function __construct($creator, $title, $description, $done, $due_time, $create_time, $note)
     {
         $this->creator = $creator;
         $this->title = $title;
         $this->description = $description;
         $this->done = $done;
         $this->due_time = $due_time;
-        $this->created_time = $created_time;
+        $this->create_time = $create_time;
         $this->note = $note;
     }
 
@@ -37,7 +37,7 @@ class Task
     /**
      * Get All Tasks
      */
-    public function getTask()
+    public static function getTask()
     {
         require 'db_connect/connect.php';
 
@@ -82,15 +82,15 @@ class Task
         $description = $this->getDescription();
         $done = $this->getDone();
         $due_time = $this->getDue_time();
-        $created_time = $this->getCreated_time();
+        $create_time = $this->getCreate_time();
         $note = $this->getNote();
 
         
         $sql = "INSERT INTO task (fk_pk_account_id, title, description, done, due_time, create_time, note) 
-                VALUES (:creator, :title, :description, :done, :due_time, :created_time, :note);";
+                VALUES (:creator, :title, :description, :done, :due_time, :create_time, :note);";
 
         $stmt = $connect->prepare($sql);
-        $stmt->execute(array(':creator' => $creator, ':title' => $title, ':description' => $description, ':done' => $done, ':due_time' => $due_time, ':created_time' => $created_time, ':note' => $note));
+        $stmt->execute(array(':creator' => $creator, ':title' => $title, ':description' => $description, ':done' => $done, ':due_time' => $due_time, ':create_time' => $create_time, ':note' => $note));
 
     }
 
@@ -98,14 +98,14 @@ class Task
     /**
      * Returns the Task ID
      */
-    public static function getID($creator_id, $description, $due_time, $created_time)
+    public static function getID($creator_id, $description, $due_time, $create_time)
     {   
         require 'db_connect/connect.php';
 
-        $sql = "SELECT pk_task_id FROM task WHERE fk_pk_account_id = $creator_id AND description = $description AND due_time = $due_time AND created_time = $created_time";
+        $sql = "SELECT pk_task_id FROM task WHERE fk_pk_account_id = $creator_id AND description = '$description' AND due_time = '$due_time' AND create_time = '$create_time'";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll()[0]['pk_task_id'];
+        return $stmt->fetchAll();
 
     }
 
@@ -114,7 +114,7 @@ class Task
     /**
      * Updates old Task to new Task with given parameters
      */
-    public function editTask($creator_new, $title_new, $description_new, $done_new, $due_time_new, $created_time_new, $note_new)
+    public function editTask($creator_new, $title_new, $description_new, $done_new, $due_time_new, $create_time_new, $note_new)
     {
         require 'db_connect/connect.php';
 
@@ -123,13 +123,13 @@ class Task
         $description = $this->getDescription();
         $done = $this->getDone();
         $due_time = $this->getDue_time();
-        $created_time = $this->getCreated_time();
+        $create_time = $this->getCreate_time();
         $note = $this->getNote();
 
 
         $sql = "UPDATE task
-                SET fk_pk_account_id = $creator_new, title = $title_new, description = $description_new, done = $done_new, due_time = $due_time_new, created_time = $created_time_new, note = $note_new
-                WHERE fk_pk_account_id = :creator AND description = :description AND due_time = :due_time AND created_time = :created_time;";
+                SET fk_pk_account_id = $creator_new, title = $title_new, description = $description_new, done = $done_new, due_time = $due_time_new, create_time = $create_time_new, note = $note_new
+                WHERE fk_pk_account_id = :creator AND description = :description AND due_time = :due_time AND create_time = :create_time;";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
     }
@@ -181,9 +181,9 @@ class Task
     /**
      * Get the value of created_time
      */
-    public function getCreated_time()
+    public function getCreate_time()
     {
-        return $this->created_time;
+        return $this->create_time;
     }
 
     /**

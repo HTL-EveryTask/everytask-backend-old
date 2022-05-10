@@ -128,8 +128,8 @@ class Task
 
 
         $sql = "UPDATE task
-                SET fk_pk_account_id = $creator_new, title = $title_new, description = $description_new, done = $done_new, due_time = $due_time_new, create_time = $create_time_new, note = $note_new
-                WHERE fk_pk_account_id = :creator AND description = :description AND due_time = :due_time AND create_time = :create_time;";
+                SET fk_pk_account_id = $creator_new, title = '$title_new', description = '$description_new', done = '$done_new', due_time = '$due_time_new', create_time = '$create_time_new', note = ''
+                WHERE fk_pk_account_id = $creator AND description = '$description' AND due_time = '$due_time' AND create_time = '$create_time';";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
     }

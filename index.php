@@ -72,7 +72,7 @@ if (isset($POST['action']) && $POST['action'] == 'addTask') {
 
 }
 
-//Delete Task
+// Delete Task
 if (isset($POST['action']) && $POST['action'] == 'deleteTask') {
     if($POST['task_id'] == '' || $POST['task_id'] == null || $POST['task_id'] == 'undefined') {
         echo json_encode(array('Task deleted' => 'false'));
@@ -80,4 +80,10 @@ if (isset($POST['action']) && $POST['action'] == 'deleteTask') {
     }
     Task::deleteTask($POST['task_id']);
     echo json_encode(array('Task deleted' => 'true'));
+}
+
+
+// Get all Task
+if (isset($POST['action']) && $POST['action'] == 'getTasks') {
+    echo json_encode(Task::getTasks());
 }

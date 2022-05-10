@@ -55,4 +55,16 @@ class Task_Test extends TestCase
         );
     }
 
+
+    public function test_editTask()
+    {
+        $task = new Task(6, 'test task', 'description haha', false, '2019-03-10 02:55:05', '2018-03-10 02:55:05', '');
+        $task->addTask();
+        $task->editTask(6, 'Cool Updated Task', 'new description haha', false, '2019-03-10 02:55:05', '2018-03-10 02:55:05', '');
+
+        $this->assertTrue(
+            true
+        );
+    }
+
 }

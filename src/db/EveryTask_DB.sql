@@ -40,3 +40,11 @@ INSERT INTO task (fk_pk_account_id, title, description, done, due_time, create_t
                 VALUES (1, 'test task', 'description hehe', false, '2019-03-10 02:55:05', '2019-03-10 02:55:05', '');
 
 SELECT pk_task_id FROM task WHERE fk_pk_account_id = 1 AND description = 'description hehe' AND due_time = '2019-03-10 02:55:05' AND create_time = '2018-03-10 02:55:05';
+
+
+UPDATE task
+SET fk_pk_account_id = 6, title = 'cool updated task', description = 'Bubugugi', done = false, due_time = '2019-03-10 02:55:05', create_time = '2018-03-10 02:55:05', note = ''
+WHERE fk_pk_account_id = 1 AND description = 'description hehe' AND due_time = '2019-03-10 02:55:05' AND create_time = '2018-03-10 02:55:05';
+
+
+SELECT * FROM Task;

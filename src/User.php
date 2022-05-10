@@ -20,7 +20,7 @@ class User
     public function __construct($token, $username, $email, $user_id)
     {
         $this->email = $email;
-        $this->tokem = $token;
+        $this->token = $token;
         $this->username = $username;
         $this->user_id = $user_id;
     }
@@ -39,12 +39,12 @@ class User
 
 
     public static function getUserID_byToken($token) {
-        require_once 'db_connect/connect.php';
+        require 'db_connect/connect.php';
 
-        $sql = "SELECT pk_account_id FROM account WHERE token = '$token'";
+        $sql = "SELECT pk_account_id FROM account WHERE token = :token";
         $stmt = $connect->prepare($sql);
         $stmt->execute(array(':token' => $token));
-        return $stmt->fetchAll();
+        return $stmt->fetchAll()[0][0];
     }
 
 

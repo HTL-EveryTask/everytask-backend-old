@@ -63,6 +63,8 @@ if (isset($POST['action']) && $POST['action'] == 'addTask') {
     $task = new Task(User::getUserID_byToken($POST['token']), $POST['title'], $POST['description'], $POST['is_done'], $POST['due_time'], $POST['created_time'], $POST['note']);
     $task_id = Task::getID(User::getUserID_byToken($POST['token']), $POST['description'], $POST['due_time'], $POST['created_time']);
 
+    print_r($task);
+
     if (!empty($task)) {
         echo json_encode("Task not added");
     }

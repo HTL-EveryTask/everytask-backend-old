@@ -37,7 +37,7 @@ class Task
     /**
      * Get All Tasks
      */
-    public static function getTask()
+    public static function getTasks()
     {
         require 'db_connect/connect.php';
 
@@ -96,6 +96,7 @@ class Task
 
 
     /**
+     * @return int
      * Returns the Task ID
      */
     public static function getID($creator_id, $description, $due_time, $create_time)
@@ -106,7 +107,6 @@ class Task
         $stmt = $connect->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
-
     }
 
 

@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src"
   ],
-  "SelectedNode": "\\C:\\Users\\mbaus\\Desktop\\EveryTask\\everytask-backend",
+  "SelectedNode": "\\src\\User.php",
   "PreviewInSolutionExplorer": false
 }

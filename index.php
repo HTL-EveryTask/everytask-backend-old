@@ -60,7 +60,7 @@ if (isset($POST['action']) && $POST['action'] == 'get_UserID') {
 // Add new Task
 if (isset($POST['action']) && $POST['action'] == 'addTask') {
 
-    $task = new Task(User::getUserID_byToken($POST['token']), $POST['title'], $POST['description'], $POST['is_done'], $POST['due_time'], $POST['created_time'], $POST['note']);
+    $task = new Task(User::getUserID_byToken($POST['token'])[0][0], $POST['title'], $POST['description'], $POST['is_done'], $POST['due_time'], $POST['created_time'], $POST['note']);
     $task_id = Task::getID(User::getUserID_byToken($POST['token']), $POST['description'], $POST['due_time'], $POST['created_time']);
 
     if (isset($task_id)) {

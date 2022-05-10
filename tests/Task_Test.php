@@ -2,6 +2,7 @@
 
 
 use Everytask\Backend\Task;
+use Everytask\Backend\User;
 use PHPUnit\Framework\TestCase;
 
 class Task_Test extends TestCase
@@ -46,4 +47,12 @@ class Task_Test extends TestCase
             empty($res)
         );
     }
+
+    public function test_getUserID_byToken()
+    {
+        $this->assertTrue(
+            User::getUserID_byToken('admin')[0][0] == 1
+        );
+    }
+
 }

@@ -61,12 +61,13 @@ if (isset($POST['action']) && $POST['action'] == 'get_UserID') {
 if (isset($POST['action']) && $POST['action'] == 'addTask') {
 
     $task = new Task(User::getUserID_byToken($POST['token']), $POST['title'], $POST['description'], $POST['is_done'], $POST['due_time'], $POST['created_time'], $POST['note']);
+    $task->addTask();
     $task_id = Task::getID(User::getUserID_byToken($POST['token']), $POST['description'], $POST['due_time'], $POST['created_time']);
 
-    print_r($task);
 
-    if (!empty($task)) {
+    if (empty($task)) {
         echo json_encode("Task not added");
+        return;
     }
 
     if (!empty($task_id)) {
@@ -74,7 +75,7 @@ if (isset($POST['action']) && $POST['action'] == 'addTask') {
         return;
     }
     
-    echo json_encode(array('Task added' => 'error occured, check sent data'));
+    echo json_encode(array('Task not added' => 'error occured, check sent data'));
 
 }
 

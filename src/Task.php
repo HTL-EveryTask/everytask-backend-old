@@ -152,6 +152,23 @@ class Task
     }
 
 
+
+    /**
+     * Mark Task as Done for Everyone
+     */
+    public function mark_all($isDone) {
+        require 'db_connect/connect.php';
+
+        $id = self::getID($this->getCreator(), $this->getDescription(), $this->getDue_time(), $this->getCreate_time());
+
+        $sql = "UPDATE task
+                SET  = done = $isDone
+                WHERE pk_task_id = $id;";
+        $stmt = $connect->prepare($sql);
+        $stmt->execute();
+    }
+
+
     
     /**
      * Updates old Task to new Task with given parameters

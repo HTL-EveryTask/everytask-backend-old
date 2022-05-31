@@ -67,4 +67,11 @@ class Task_Test extends TestCase
         );
     }
 
+    public function test_getTask()
+    {
+        $task = Task::getTask(43);
+
+        print_r($task);
+    }
+
 }

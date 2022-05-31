@@ -13,6 +13,7 @@ use Everytask\Backend\User;
 use Everytask\Backend\Task;
 
 require_once 'vendor/autoload.php';
+require_once 'src/Task.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
@@ -92,4 +93,32 @@ if (isset($POST['action']) && $POST['action'] == 'deleteTask') {
 // Get all Task
 if (isset($POST['action']) && $POST['action'] == 'getTasks') {
     echo json_encode(Task::getTasks());
+}
+
+
+// Get Task ID
+if (isset($POST['action']) && $POST['action'] == 'getTaskID') {
+    echo json_encode(array('Task ID' => Task::getID(User::getUserID_byToken($_POST['token']), $_POST['description'], $_POST['due_time'], $_POST['create_time'])));
+}
+
+
+/**
+ * EDIT TASK
+ *
+ * needed POST's:
+ *      task_id
+ *      creator_id_new
+ *      title_new
+ *      description_new
+ *      done_new
+ *      due_time_new
+ *      create_time_new
+ *      note_new
+ */
+if (isset($POST['action']) && $POST['action'] == 'editTask') {
+
+    $task_data = Task::getTask($_POST['task_id']);
+    $task = new Task($task_data['fk_pk_account_id'], $task_data['title'], $task_data['description'], $task_data['done'], $task_data['due_time'], $task_data['create_time'], $task_data['note']);
+
+    $task->editTask($_POST['creator_id_new'], $_POST['title_new'], $_POST['description_new'], $_POST['done_new'], $_POST['due_time_new'], $_POST['create_time_new'], $_POST['note_new']);
 }

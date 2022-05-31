@@ -49,6 +49,20 @@ class Task
         return $result;
     }
 
+    /**
+     * Get Task by Task ID
+     */
+    public static function getTask($id) {
+        require 'db_connect/connect.php';
+
+        $sql = "SELECT * FROM task WHERE pk_task_id = " . $id;
+        $stmt = $connect->prepare($sql);
+        $stmt->execute();
+        $res = $stmt->fetchAll();
+
+        return $res;
+    }
+
 
     /**
      * TODO

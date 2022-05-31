@@ -11,7 +11,6 @@ namespace Everytask\Backend;
 
 class Task
 {
-
     private $creator;
     private $title;
     private $description;
@@ -19,9 +18,10 @@ class Task
     private $due_time;
     private $create_time;
     private $note;
+    private $group;
 
 
-    public function __construct($creator, $title, $description, $done, $due_time, $create_time, $note)
+    public function __construct($creator, $group, $title, $description, $done, $due_time, $create_time, $note)
     {
         $this->creator = $creator;
         $this->title = $title;
@@ -30,6 +30,7 @@ class Task
         $this->due_time = $due_time;
         $this->create_time = $create_time;
         $this->note = $note;
+        $this->group = $group;
     }
 
 
@@ -98,15 +99,42 @@ class Task
         $due_time = $this->getDue_time();
         $create_time = $this->getCreate_time();
         $note = $this->getNote();
+        $group = $this->getGroup();
 
         
-        $sql = "INSERT INTO task (fk_pk_account_id, title, description, done, due_time, create_time, note) 
-                VALUES (:creator, :title, :description, :done, :due_time, :create_time, :note);";
+        $sql = "INSERT INTO task (fk_pk_account_id, fk_pk_group_id, title, description, done, due_time, create_time, note) 
+                VALUES (:creator, :group_id, :title, :description, :done, :due_time, :create_time, :note);";
 
         $stmt = $connect->prepare($sql);
-        $stmt->execute(array(':creator' => $creator, ':title' => $title, ':description' => $description, ':done' => $done, ':due_time' => $due_time, ':create_time' => $create_time, ':note' => $note));
+        $stmt->execute(array(':creator' => $creator, ':group_id' => $group, ':title' => $title, ':description' => $description, ':done' => $done, ':due_time' => $due_time, ':create_time' => $create_time, ':note' => $note));
+    }
+
+
+    /**
+     * Add SubTask to Task
+     */
+    public function addSubTask($parent_task)
+    {
+        require 'db_connect/connect.php';
+
+        $creator = $this->getCreator();
+        $title = $this->getTitle();
+        $description = $this->getDescription();
+        $done = $this->getDone();
+        $due_time = $this->getDue_time();
+        $create_time = $this->getCreate_time();
+        $note = $this->getNote();
+        $group = $this->getGroup();
+
+
+        $sql = "INSERT INTO task (fk_pk_account_id, fk_pk_group_id, fk_pk_cheftask_id, title, description, done, due_time, create_time, note) 
+                VALUES (:creator, :group_id, :chef_task_id, :title, :description, :done, :due_time, :create_time, :note);";
+
+        $stmt = $connect->prepare($sql);
+        $stmt->execute(array(':creator' => $creator, ':group_id' => $group, ':chef_task_id' => $parent_task, ':title' => $title, ':description' => $description, ':done' => $done, ':due_time' => $due_time, ':create_time' => $create_time, ':note' => $note));
 
     }
+
 
 
     /**
@@ -210,5 +238,13 @@ class Task
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Get the value of group
+     */
+    public function getGroup()
+    {
+        return $this->group;
     }
 }

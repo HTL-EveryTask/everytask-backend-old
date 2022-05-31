@@ -7,6 +7,7 @@
  * npm run dev
  */
 
+use Everytask\Backend\Group;
 use Everytask\Backend\Login;
 use Everytask\Backend\Register;
 use Everytask\Backend\User;
@@ -61,7 +62,7 @@ if (isset($POST['action']) && $POST['action'] == 'get_UserID') {
 // Add new Task
 if (isset($POST['action']) && $POST['action'] == 'addTask') {
 
-    $task = new Task(User::getUserID_byToken($POST['token']), $POST['title'], $POST['description'], $POST['is_done'], $POST['due_time'], $POST['created_time'], $POST['note']);
+    $task = new Task(User::getUserID_byToken($POST['token']), $_POST['group_id'], $POST['title'], $POST['description'], $POST['is_done'], $POST['due_time'], $POST['created_time'], $POST['note']);
     $task->addTask();
     $task_id = Task::getID(User::getUserID_byToken($POST['token']), $POST['description'], $POST['due_time'], $POST['created_time']);
 
@@ -119,7 +120,29 @@ if (isset($POST['action']) && $POST['action'] == 'getTaskID') {
 if (isset($POST['action']) && $POST['action'] == 'editTask') {
 
     $task_data = Task::getTask($_POST['task_id']);
-    $task = new Task($task_data['fk_pk_account_id'], $task_data['title'], $task_data['description'], $task_data['done'], $task_data['due_time'], $task_data['create_time'], $task_data['note']);
+    $task = new Task($task_data['fk_pk_account_id'], $task_data['group_id'], $task_data['title'], $task_data['description'], $task_data['done'], $task_data['due_time'], $task_data['create_time'], $task_data['note']);
 
     $task->editTask($_POST['creator_id_new'], $_POST['title_new'], $_POST['description_new'], $_POST['done_new'], $_POST['due_time_new'], $_POST['create_time_new'], $_POST['note_new']);
+}
+
+
+/**
+ * Add new Group
+ *
+ * needed POST's:
+ *
+ *      group_name
+ *      group_icon
+ *      group_description
+ */
+if (isset($POST['action']) && $POST['action'] == 'addGroup') {
+
+    $group = new Group($_POST['group_name'], $_POST['group_icon'], $_POST['group_description']);
+    $group->addGroup();
+
+    if (empty($group)) {
+        echo json_encode(array('Group not added' => 'error occured, check sent data'));
+    } else {
+        echo json_encode(array('Group added' => 'true'));
+    }
 }

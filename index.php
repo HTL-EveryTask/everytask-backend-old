@@ -76,7 +76,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'addTask') {
     if (!isset($_POST['description'])) echo json_encode('No description received');
     if (!isset($_POST['is_done'])) echo json_encode('No is_done received');
     if (!isset($_POST['due_time'])) echo json_encode('No due_time received');
-    if (!isset($_POST['create_time'])) echo json_encode('No create_time received');
+    if (!isset($_POST['created_time'])) echo json_encode('No create_time received');
     if (!isset($_POST['note'])) {
         echo json_encode('No note received');
         $note = '';

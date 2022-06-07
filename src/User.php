@@ -44,7 +44,7 @@ class User
         $sql = "SELECT pk_account_id FROM account WHERE token = :token";
         $stmt = $connect->prepare($sql);
         $stmt->execute(array(':token' => $token));
-        return $stmt->fetchAll()[0][0];
+        return print_r($stmt->fetchAll()[0][0]);
     }
 
 

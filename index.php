@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Start PHP Server on Localhost 8080
  * php -S localhost:8080
@@ -63,11 +64,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'get_UserID') {
     echo json_encode(array('User ID' => User::getUserID_byToken($_POST['token'])));
 }
 
-
-
-
-
-
 // Add new Task
 if (isset($_POST['action']) && $_POST['action'] == 'addTask') {
     if (!isset($_POST['token'])) echo json_encode('No token received');
@@ -97,9 +93,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'addTask') {
         echo json_encode(array('Task added' => 'true', 'task_id' => $task_id));
         return;
     }
-    
-    echo json_encode(array('Task not added' => 'error occured, check sent data'));
 
+    echo json_encode(array('Task not added' => 'error occured, check sent data'));
 }
 
 // Delete Task
@@ -107,7 +102,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'deleteTask') {
 
     if (!isset($_POST['task_id'])) echo json_encode('No task_id received');
 
-    if($_POST['task_id'] == '' || $_POST['task_id'] == null || $_POST['task_id'] == 'undefined') {
+    if ($_POST['task_id'] == '' || $_POST['task_id'] == null || $_POST['task_id'] == 'undefined') {
         echo json_encode(array('Task deleted' => 'false'));
         return;
     }
@@ -158,8 +153,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'editTask') {
     if (!isset($_POST['create_time_new'])) echo json_encode('No create_time_new received');
     if (!isset($_POST['note_new'])) echo json_encode('No note_new received');
 
-    $task_data = Task::getTask($_POST['task_id']);
-    $task = new Task($task_data['fk_pk_account_id'], $task_data['group_id'], $task_data['title'], $task_data['description'], $task_data['done'], $task_data['due_time'], $task_data['create_time'], $task_data['note']);
+    $task = Task::getTask($_POST['task_id']);
 
     $task->editTask($_POST['creator_id_new'], $_POST['title_new'], $_POST['description_new'], $_POST['done_new'], $_POST['due_time_new'], $_POST['create_time_new'], $_POST['note_new']);
 }
@@ -195,18 +189,18 @@ if (isset($_POST['action']) && $_POST['action'] == 'addGroup') {
  * Mark Task as Done / not Done
  *
  * needed POST's:
- *
  *      task_id
- *      task_status
  */
 
 if (isset($_POST['action']) && $_POST['action'] == 'switch_task_status') {
 
     if (!isset($_POST['task_id'])) echo json_encode('No task_id received');
-    if (!isset($_POST['task_status'])) echo json_encode('No task_status received');
 
-    $task = Task::getTask($task_id);
-
-    $task->mark_all($_POST['task_status']);
-    echo json_encode('Switched Task status to ' . $_POST['task_status']);
+    try {
+        $task = Task::getTask($_POST['task_id']);
+        $task->mark_all();
+        echo json_encode(array('Task status switched' => 'success'));
+    } catch (Exception $e) {
+        echo json_encode(array('Task status switched' => 'error'));
+    }
 }

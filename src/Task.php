@@ -53,7 +53,8 @@ class Task
     /**
      * Get Task by Task ID
      */
-    public static function getTask($id) {
+    public static function getTask($id)
+    {
         require 'db_connect/connect.php';
 
         $sql = "SELECT * FROM task WHERE pk_task_id = " . $id;
@@ -61,7 +62,7 @@ class Task
         $stmt->execute();
         $res = $stmt->fetchAll();
 
-        return $res;
+        return new Task($res[0]['fk_pk_account_id'], $res[0]['fk_pk_group_id'], $res[0]['title'], $res[0]['description'], $res[0]['done'], $res[0]['due_time'], $res[0]['create_time'], $res[0]['note']);
     }
 
 
@@ -83,8 +84,6 @@ class Task
     }
 
 
-
-
     /**
      * Adds the task to database
      */
@@ -101,7 +100,7 @@ class Task
         $note = $this->getNote();
         $group = $this->getGroup();
 
-        
+
         $sql = "INSERT INTO task (fk_pk_account_id, fk_pk_group_id, title, description, done, due_time, create_time, note) 
                 VALUES (:creator, :group_id, :title, :description, :done, :due_time, :create_time, :note);";
 
@@ -132,44 +131,41 @@ class Task
 
         $stmt = $connect->prepare($sql);
         $stmt->execute(array(':creator' => $creator, ':group_id' => $group, ':chef_task_id' => $parent_task, ':title' => $title, ':description' => $description, ':done' => $done, ':due_time' => $due_time, ':create_time' => $create_time, ':note' => $note));
-
     }
 
 
 
     /**
-     * @return int
      * Returns the Task ID
+     * @return int
      */
     public static function getID($creator_id, $description, $due_time, $create_time)
-    {   
+    {
         require 'db_connect/connect.php';
 
         $sql = "SELECT pk_task_id FROM task WHERE fk_pk_account_id = $creator_id AND description = '$description' AND due_time = '$due_time' AND create_time = '$create_time'";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll();
+        return intval($stmt->fetchAll()['0']['pk_task_id']);
     }
-
 
 
     /**
      * Mark Task as Done for Everyone
      */
-    public function mark_all($isDone) {
+    public function mark_all()
+    {
         require 'db_connect/connect.php';
 
         $id = self::getID($this->getCreator(), $this->getDescription(), $this->getDue_time(), $this->getCreate_time());
-
+        $status = !$this->getDone();
         $sql = "UPDATE task
-                SET  = done = $isDone
-                WHERE pk_task_id = $id;";
+                SET done = '$status'
+                WHERE pk_task_id = '$id';";
         $stmt = $connect->prepare($sql);
         $stmt->execute();
     }
 
-
-    
     /**
      * Updates old Task to new Task with given parameters
      */
@@ -193,7 +189,8 @@ class Task
         $stmt->execute();
     }
 
-    public static function deleteTask($id) {
+    public static function deleteTask($id)
+    {
         require 'db_connect/connect.php';
 
         $sql = "DELETE FROM task WHERE pk_task_id = :id";
@@ -263,5 +260,9 @@ class Task
     public function getGroup()
     {
         return $this->group;
+    }
+
+    public function __toString() {
+        return $this->getTitle();
     }
 }

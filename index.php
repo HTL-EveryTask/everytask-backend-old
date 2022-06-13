@@ -112,8 +112,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'deleteTask') {
 
 
 // Get all Task
+//TODO: token mitgeben
 if (isset($_POST['action']) && $_POST['action'] == 'getTasks') {
-    echo json_encode(Task::getTasks());
+    echo json_encode(Task::getTasks(User::getUserID_byToken($_POST['token'])));
 }
 
 

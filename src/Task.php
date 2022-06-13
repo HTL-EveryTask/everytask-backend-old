@@ -38,13 +38,13 @@ class Task
     /**
      * Get All Tasks
      */
-    public static function getTasks()
+    public static function getTasks($userToken)
     {
         require 'db_connect/connect.php';
 
-        $sql = "SELECT * FROM task";
+        $sql = "SELECT * FROM task WHERE fk_pk_account_id = :usertoken";
         $stmt = $connect->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([':usertoken' => $userToken]);
         $result = $stmt->fetchAll();
 
         return $result;

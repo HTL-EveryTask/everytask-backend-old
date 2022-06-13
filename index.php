@@ -155,7 +155,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'editTask') {
 
     $task = Task::getTask($_POST['task_id']);
 
-    $task->editTask($_POST['creator_id_new'], $_POST['title_new'], $_POST['description_new'], $_POST['done_new'], $_POST['due_time_new'], $_POST['create_time_new'], $_POST['note_new']);
+    $task->editTask(User::getUserID_byToken($_POST['token']), $_POST['title_new'], $_POST['description_new'], $_POST['done_new'], $_POST['due_time_new'], $_POST['create_time_new'], $_POST['note_new']);
 }
 
 

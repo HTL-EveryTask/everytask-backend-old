@@ -98,6 +98,16 @@ class Register
 
     }
 
+    public static function getUsername_ByEmail($email)
+    {
+        require 'db_connect/connect.php';
+        $sql = "SELECT username FROM account WHERE email = :email";
+        $stmt = $connect->prepare($sql);
+        $stmt->execute(array(':email' => $email));
+        $result = $stmt->fetchAll();
+        return $result[0]['username'];
+    }
+
 
     /**
      * Get the value of email

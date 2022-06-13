@@ -35,7 +35,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'login') {
 
     $user = new Login($_POST['email'], $_POST['password']);
     if ($user->checkCredentials()) {
-        echo json_encode(array('status' => 'success', 'token' => User::getToken_byEmail($_POST['email'])));
+        echo json_encode(array('status' => 'success', 'token' => User::getToken_byEmail($_POST['email']), 'email' => $user->getEmail()));
     } else {
         echo json_encode(array('status' => 'error'));
     }
